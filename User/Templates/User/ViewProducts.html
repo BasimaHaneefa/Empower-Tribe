@@ -27,7 +27,7 @@
                 <td>{{i.product_details}}</td>
                 <td>Rs.{{i.product_price}}/-</td>
                 <td>{{i.family.family_housename}}</td>
-                <td><a href="">Buy</a></td>
+                <td><a href="{% url 'Webuser:addcart' i.id %}">Add to cart</a></td>
             
             </tr>
             {% endfor  %}

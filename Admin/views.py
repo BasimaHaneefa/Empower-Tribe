@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from Admin.models import *
-
+from User.models import *
 # Create your views here.
 
 def localbodytype(request):
@@ -175,3 +175,42 @@ def editcat(request,id):
 def delcat(request,id):
     tbl_category.objects.get(id=id).delete()  
     return redirect("Webadmin:category")
+
+
+def Registration(request):
+    regdata=tbl_registration.objects.all()
+    if request.method=="POST":
+       tbl_registration.objects.create(registration_name=request.POST.get("txtname"),
+                                       registration_contact=request.POST.get("txtnumber"),
+                                       registration_email=request.POST.get("txtemail"),
+                                       registration_password=request.POST.get("txtpassword")
+                                       )
+       return render(request,"Admin/Registration.html",{'reg':regdata})
+    else:
+       return render(request,"Admin/Registration.html",{'reg':regdata}) 
+
+def delreg(request,did):
+    tbl_registration.objects.get(id=did).delete() 
+    return redirect("Webadmin:registration") 
+
+
+
+
+def ViewComplaint(request):
+    newcom=tbl_complaint.objects.filter(complaint_status=0)
+    recom=tbl_complaint.objects.filter(complaint_status=1)
+    return render(request,"Admin/ViewComplaint.html",{'new':newcom,'repl':recom})
+  
+def Reply(request,rid):
+    com=tbl_complaint.objects.get(id=rid)
+    if request.method=="POST":
+        com.complaint_reply=request.POST.get("txtpro")
+        com.complaint_status=1
+        com.save()
+        return redirect("webadmin:ViewComplaint")
+    else:
+        return render(request,"Admin/Reply.html")
+    
+def ViewFeedback(request):
+    data=tbl_feedback.objects.all()
+    return render(request,"Admin/ViewFeedback.html",{'data':data})   

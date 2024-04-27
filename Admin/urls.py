@@ -32,4 +32,7 @@ urlpatterns = [
     path('editcat/<int:id>',views.editcat,name="editcat"),
     path('delcat/<int:id>',views.delcat,name="delcat"),
 
+    path('registration/',views.Registration,name="registration"),
+    path('delreg/<int:rid>',views.delreg,name="delreg"),
+
 ]

@@ -26,3 +26,15 @@ class tbl_product(models.Model):
     product_stock=models.CharField(max_length=50)
     product_category=models.ForeignKey(tbl_category,on_delete=models.CASCADE)
     family=models.ForeignKey(tbl_family,on_delete=models.CASCADE,null=True)
+
+class tbl_stock(models.Model):
+    product=models.ForeignKey(tbl_product,on_delete=models.CASCADE)
+    stock_date=models.DateField(auto_now_add=True)
+    stock_qty=models.CharField(max_length=50)
+   
+
+class tbl_familyneedlist(models.Model):
+    family=models.ForeignKey(tbl_family,on_delete=models.CASCADE)
+    donationtype=models.ForeignKey(tbl_donationtype,on_delete=models.CASCADE)
+    need=models.CharField(max_length=50)
+    

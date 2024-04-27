@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'User',
     'Guest',
     'Teammember',
+    'mathfilters',
 ]
 
 MIDDLEWARE = [

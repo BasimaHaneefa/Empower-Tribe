@@ -37,3 +37,9 @@ class tbl_teammember(models.Model):
         
 class tbl_category(models.Model):
     category_name = models.CharField(max_length=50)
+
+class tbl_registration(models.Model):
+    registration_name=models.CharField(max_length=50) 
+    registration_contact=models.CharField(max_length=50) 
+    registration_email=models.CharField(max_length=50)
+    registration_password=models.CharField(max_length=50)    

@@ -42,7 +42,8 @@
             <td>{{i.teammember.assignment.ward.ward}}</td>
             <td>{{i.teammember.member_name}}</td>
             <td><a href="{% url 'Webteammember:familymembers' i.id %}">Add Members</a>
-            <a href="{% url 'Webteammember:Product' i.id %}">Add Product</a></td>
+            <a href="{% url 'Webteammember:Product' i.id %}">Add Product</a>
+            <a href="{% url 'Webteammember:needs' i.id %}">Needs</a></td>
         </tr>
         {% endfor %}
     </table>
