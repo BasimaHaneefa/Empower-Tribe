@@ -110,6 +110,13 @@ def team(request):
     else:
         return render(request,"Admin/Add_team.html",{"data":team})     
 
+def Assign(request,id):
+    ward=tbl_ward.objects.all()
+    if request.method =="POST":
+        tbl_assigmment.objects.create(team=tbl_team.objects.get(id=id),ward=tbl_ward.objects.get(id=request.POST.get("sel_ward")))
+        return redirect("Webadmin:team")
+    else:
+        return render(request,"Admin/Assignteam.html",{"data":ward})
 
 def editteam(request,id):
     team=tbl_team.objects.get(id=id)    
@@ -120,3 +127,51 @@ def editteam(request,id):
         return redirect("Webadmin:team") 
     else:
         return render(request,"Admin/Add_team.html",{"team":team})
+    
+
+def delteam(request,id):
+    tbl_team.objects.get(id=id).delete()
+    return redirect("Webadmin:team")
+
+
+def MemberRegistration(request,id):
+    memberdata=tbl_teammember.objects.all()
+    if request.method=="POST":
+      tbl_teammember.objects.create(member_name=request.POST.get('txtname'),
+                                       member_contact=request.POST.get('txtnumber'),
+                                       member_email=request.POST.get('txtemail'),
+                                       member_address=request.POST.get('txtaddress'),
+                                       member_photo=request.FILES.get('Photo'),
+                                       member_proof=request.POST.get('Proof'),
+                                       member_password=request.POST.get('txtpassword1'),
+                                       assignment=tbl_assigmment.objects.get(id=id)
+                                       )
+      return render(request,"Admin/Add_members.html",{memberdata:memberdata})
+    else:
+      return render(request,"Admin/Add_members.html",{memberdata:memberdata})
+    
+def AssignedTeams(request):
+    team=tbl_assigmment.objects.all()
+    return render(request,"Admin/Assigned_teams.html",{"data":team})
+
+
+def category(request):
+    loc=tbl_category.objects.all()
+    if request.method =="POST":
+        tbl_category.objects.create(category_name=request.POST.get("txt_category"))
+        return redirect("Webadmin:category")
+    else:
+        return render(request,"Admin/Category.html",{"data":loc})
+
+def editcat(request,id):
+    editloc=tbl_category.objects.get(id=id)
+    if request.method =="POST":
+        editloc.category_name=request.POST.get("txt_category")
+        editloc.save()
+        return redirect("Webadmin:category")
+    else:
+        return render(request,"Admin/Category.html",{"editloc":editloc})     
+
+def delcat(request,id):
+    tbl_category.objects.get(id=id).delete()  
+    return redirect("Webadmin:category")

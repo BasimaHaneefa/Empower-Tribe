@@ -20,5 +20,16 @@ urlpatterns = [
     path('deldonationtype/<int:id>',views.deldonationtype,name="deldonationtype"),
 
     path('team/',views.team,name="team"),
+    path('Assign/<int:id>',views.Assign,name="Assign"),
+    path('editteam/<int:id>',views.editteam,name="editteam"),
+    path('delteam/<int:id>',views.delteam,name="delteam"),
+
+    path('AssignedTeams/',views.AssignedTeams,name="AssignedTeams"),
+    path('MemberRegistration/<int:id>',views.MemberRegistration,name="MemberRegistration"),
+
+
+    path('category/',views.category,name="category"),
+    path('editcat/<int:id>',views.editcat,name="editcat"),
+    path('delcat/<int:id>',views.delcat,name="delcat"),
 
 ]

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>Member Count</td>
+                <td><input type="text" name="txt_count" id=""></td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td><input type="text" name="txt_name" id=""></td>
+            </tr>
+            <tr>
+                <td>Gender</td>
+                <td><input type="radio" name="Gender" id="Male">Male
+                <input type="radio" name="Gender" id="Female">FeMale
+                </td>
+            </tr>
+            <tr>
+                <td>Age</td>
+                <td><input type="number" name="txt_age" id=""></td>
+            </tr>
+            <tr>
+                <td>Relation</td>
+                <td><input type="text" name="txt_relation" id=""></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Submit"></td>
+                
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
