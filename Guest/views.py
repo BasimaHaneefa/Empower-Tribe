@@ -10,6 +10,7 @@ def Login(request):
 
        membercount = tbl_teammember.objects.filter(member_email=login_email,member_password=login_password).count() 
        usercount = tbl_userreg.objects.filter(userregistration_email=login_email,userregistration_password=login_password).count() 
+       admincount = tbl_registration.objects.filter(registration_email=login_email,registration_password=login_password).count() 
        
        if membercount > 0:
           member = tbl_teammember.objects.get(member_email=login_email,member_password=login_password)
@@ -18,7 +19,11 @@ def Login(request):
        elif usercount > 0:
           user = tbl_userreg.objects.get(userregistration_email=login_email,userregistration_password=login_password)
           request.session["uid"] = user.id
-          return redirect("Webuser:homepage")  
+          return redirect("Webuser:homepage")
+       elif admincount > 0:
+          admin = tbl_registration.objects.get(registration_email=login_email,registration_password=login_password)
+          request.session["aid"] = admin.id
+          return redirect("Webadmin:homepage")  
     else:                                           
         return render(request,"Guest/Login.html",{"msg":"error"})
     
@@ -37,3 +42,28 @@ def UserRegistration(request):
       return render(request,"Guest/UserRegistration.html")
     else:
       return render(request,"Guest/UserRegistration.html")    
+    
+
+
+def MemberRegistration(request,id):
+    memberdata=tbl_teammember.objects.all()
+    if request.method=="POST":
+      tbl_teammember.objects.create(member_name=request.POST.get('txtname'),
+                                       member_contact=request.POST.get('txtnumber'),
+                                       member_email=request.POST.get('txtemail'),
+                                       member_address=request.POST.get('txtaddress'),
+                                       member_photo=request.FILES.get('Photo'),
+                                       member_proof=request.FILES.get('Proof'),
+                                       member_password=request.POST.get('txtpassword1'),
+                                       assignment=tbl_assigmment.objects.get(id=id)
+                                       )
+      return render(request,"Guest/Add_members.html",{memberdata:memberdata})
+    else:
+      return render(request,"Guest/Add_members.html",{memberdata:memberdata})
+    
+def ViewTeams(request):
+    team=tbl_assigmment.objects.all()
+    return render(request,"Guest/ViewTeams.html",{"data":team})   
+
+
+

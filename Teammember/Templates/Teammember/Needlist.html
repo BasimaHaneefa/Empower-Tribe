@@ -38,6 +38,7 @@
             <td>Donation Type</td>
             <td>Needs</td>
             <td>Action</td>
+            <td>Status</td>
         </tr>
         {% for i in donation %}
         <tr>
@@ -46,6 +47,15 @@
             <td>{{i.need}}</td>
             <td><a href="{% url 'Webteammember:editneeds' i.id %}">Edit</a>
                 <a href="{% url 'Webteammember:delneed' i.id %}">Delete</a>
+            </td>
+            <td>{% if need_status == 1 %}
+                <span style="color: blue;">Accepted</span>
+                <span style="color: rgb(45, 219, 112);">Pending</span>
+                {% elif need_status == 2 %}
+                <span style="color: rgb(252, 4, 4);">Rejected</span>
+                {% else %}
+                <span style="color: rgb(45, 219, 112);">Pending</span>
+                {% endif %}
             </td>
         </tr>
         {% endfor %}

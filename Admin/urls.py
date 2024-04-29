@@ -3,6 +3,8 @@ from Admin import views
 app_name="Webadmin"
 
 urlpatterns = [
+    path('homepage/',views.homepage,name="homepage"),
+
     path('localbodytype/',views.localbodytype,name="localbodytype"),
     path('editbodytype/<int:id>',views.editbodytype,name="editbodytype"),
     path('delloctype/<int:id>',views.delloctype,name="delloctype"),
@@ -24,8 +26,7 @@ urlpatterns = [
     path('editteam/<int:id>',views.editteam,name="editteam"),
     path('delteam/<int:id>',views.delteam,name="delteam"),
 
-    path('AssignedTeams/',views.AssignedTeams,name="AssignedTeams"),
-    path('MemberRegistration/<int:id>',views.MemberRegistration,name="MemberRegistration"),
+    
 
 
     path('category/',views.category,name="category"),
@@ -34,5 +35,19 @@ urlpatterns = [
 
     path('registration/',views.Registration,name="registration"),
     path('delreg/<int:rid>',views.delreg,name="delreg"),
+
+    path('ViewNeeds/',views.ViewNeeds,name="ViewNeeds"),
+    path('Accept/<int:did>',views.Accept,name="Accept"),
+    path('Reject/<int:did>',views.Reject,name="Reject"),
+
+    path('Acceptedneeds/',views.Acceptedneeds,name="Acceptedneeds"),
+    path('Rejectedneeds/',views.Rejectedneeds,name="Rejectedneeds"),
+
+    path('Viewdonation/',views.Viewdonation,name="Viewdonation"),
+    path('report/',views.report,name="report"),
+
+    path('viewteammembers/',views.viewteammembers,name="viewteammembers"),
+
+
 
 ]

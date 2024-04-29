@@ -49,8 +49,42 @@ def ChangePassword(request):
 
 def viewproduct(request):
     data=tbl_product.objects.all()
-    return render(request,"User/ViewProducts.html",{"data":data})
 
+    for product in data:
+            total_stock = tbl_stock.objects.filter(product=product).aggregate(total=Sum('stock_qty'))['total']
+            total_cart = tbl_cart.objects.filter(product=product.id, cart_status=1).aggregate(total=Sum('cart_qty'))['total']
+            print(total_stock, "stock")
+            print(total_cart, "cart")
+            
+            if total_stock is None:
+                total_stock = 0
+            if total_cart is None:
+                total_cart = 0
+                
+            if isinstance(total_stock, int):
+                total_stock = total_stock
+            else:
+                total_stock = 0     
+                
+            if isinstance(total_cart, int):
+                total_cart = total_cart
+            else:
+                total_cart = 0
+            
+            total =  total_stock - total_cart
+            print(total)
+            product.total_stock = total
+
+
+    return render(request,"User/ViewProducts.html",{"data":data, 'product': product})
+
+
+def getStock(id):
+    product = tbl_product.objects.get(id=id)
+    total_quantity = tbl_cart.objects.filter(product=product).aggregate(total_quantity=Sum('cart_qty'))['total_quantity']
+    if total_quantity is None:
+        total_quantity = 0
+    return int(total_quantity)
 
 def Addcart(request,pid):
     
@@ -131,12 +165,12 @@ def Mycart(request):
         product.stock = total
         pro_data={
                 'id':product.id,
-                'cartproduct': product,
+                'product': product,
                 'stock':total,
             }
         data.append(pro_data)
 
-        return render(request,"User/MyCart.html",{'data':cartdata})
+        return render(request,"User/MyCart.html",{'pro':pro_data,'data':cartdata})
     else:
       return render(request,"User/MyCart.html")    
 
@@ -210,3 +244,26 @@ def Feedback(request):
 def Delfeedback(request,did):
     tbl_feedback.objects.get(id=did).delete()
     return redirect("Webuser:Feedback")   
+
+
+def Familyneeds(request):
+    data=tbl_familyneedlist.objects.filter(need_status=1)
+    return render(request,"User/FamilyNeeds.html",{'data':data})
+
+def donation(request):
+    don=tbl_donationtype.objects.all()
+    user=tbl_userreg.objects.get(id=request.session["uid"])
+    data=tbl_donation.objects.filter(user=user)
+    if request.method=="POST":
+        donation=tbl_donation.objects.create(user=user,donation_type=tbl_donationtype.objects.get(id=request.POST.get("sel_donationtype")),donation_details=request.POST.get("Description"))
+        return redirect("Webuser:donation")
+    return render(request,"User/Donation.html",{"don":don,"data":data})
+
+def deldonation(request,id):
+    tbl_donation.objects.get(id=id).delete()
+    return redirect("Webuser:donation")
+
+
+def logout(request):
+    del request.session['uid']
+    return redirect("Webguest:login")

@@ -22,7 +22,7 @@
                 <td>{{i.team.team_name}}</td>
                 <td>{{i.team.member_count}}</td>
                 <td>{{i.ward.ward}}</td>
-                <td><a href="{% url 'Webadmin:MemberRegistration' i.id %}">Add members</a></td>
+                <td><a href="{% url 'Webguest:MemberRegistration' i.id %}">Add members</a></td>
             </tr>
             {% endfor %}
         </table>

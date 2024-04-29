@@ -37,4 +37,5 @@ class tbl_familyneedlist(models.Model):
     family=models.ForeignKey(tbl_family,on_delete=models.CASCADE)
     donationtype=models.ForeignKey(tbl_donationtype,on_delete=models.CASCADE)
     need=models.CharField(max_length=50)
+    need_status=models.IntegerField(default=0,null=True)
     

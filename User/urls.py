@@ -14,5 +14,10 @@ urlpatterns = [
     path("CartQty/", views.CartQty,name="cartqty"),
     path("Pay/", views.Pay,name="pay"),
     path("ViewMyPurchase/",views. ViewMyPurchase,name="ViewMyPurchase"),
+    path('Familyneeds/',views.Familyneeds,name="Familyneeds"),
+    path('donation/', views.donation,name="donation"),
+    path('deldonation/<int:id>', views.deldonation,name="deldonation"),
+
+
 
 ]

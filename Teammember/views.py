@@ -164,3 +164,8 @@ def delneed(request,id):
     donation=tbl_familyneedlist.objects.get(id=id)
     donation.delete()
     return redirect("Webteammember:family")
+
+
+def logout(request):
+    del request.session['mid']
+    return redirect("Webguest:login")

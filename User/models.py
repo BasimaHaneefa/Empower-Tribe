@@ -32,7 +32,6 @@ class tbl_feedback(models.Model):
 
 class tbl_donation(models.Model):
     donation_date=models.DateField(auto_now_add=True)
-    donation_type=models.ForeignKey(tbl_donationtype,on_delete=models.CASCADE)
-    donation_amount=models.CharField(max_length=50)
     user=models.ForeignKey(tbl_userreg,on_delete=models.CASCADE)
-    family=models.ForeignKey(tbl_family,on_delete=models.CASCADE)
+    donation_type=models.ForeignKey(tbl_donationtype,on_delete=models.CASCADE,null=True)
+    donation_details=models.CharField(max_length=50,null=True)

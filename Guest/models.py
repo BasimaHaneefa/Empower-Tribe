@@ -9,3 +9,5 @@ class tbl_userreg(models.Model):
     userregistration_photo=models.FileField(upload_to='UserDoc/')
     userregistration_proof=models.FileField(upload_to='UserDoc/') 
     userregistration_password=models.CharField(max_length=50)
+
+    

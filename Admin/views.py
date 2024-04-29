@@ -3,6 +3,11 @@ from Admin.models import *
 from User.models import *
 # Create your views here.
 
+
+def homepage(request):
+    if request.method=="POST":
+        return render(request,"Admin/Homepage.html")
+
 def localbodytype(request):
     loc=tbl_localbodytype.objects.all()
     if request.method =="POST":
@@ -134,25 +139,7 @@ def delteam(request,id):
     return redirect("Webadmin:team")
 
 
-def MemberRegistration(request,id):
-    memberdata=tbl_teammember.objects.all()
-    if request.method=="POST":
-      tbl_teammember.objects.create(member_name=request.POST.get('txtname'),
-                                       member_contact=request.POST.get('txtnumber'),
-                                       member_email=request.POST.get('txtemail'),
-                                       member_address=request.POST.get('txtaddress'),
-                                       member_photo=request.FILES.get('Photo'),
-                                       member_proof=request.POST.get('Proof'),
-                                       member_password=request.POST.get('txtpassword1'),
-                                       assignment=tbl_assigmment.objects.get(id=id)
-                                       )
-      return render(request,"Admin/Add_members.html",{memberdata:memberdata})
-    else:
-      return render(request,"Admin/Add_members.html",{memberdata:memberdata})
-    
-def AssignedTeams(request):
-    team=tbl_assigmment.objects.all()
-    return render(request,"Admin/Assigned_teams.html",{"data":team})
+
 
 
 def category(request):
@@ -213,4 +200,51 @@ def Reply(request,rid):
     
 def ViewFeedback(request):
     data=tbl_feedback.objects.all()
-    return render(request,"Admin/ViewFeedback.html",{'data':data})   
+    return render(request,"Admin/ViewFeedback.html",{'data':data})  
+
+def ViewNeeds(request):
+    data=tbl_familyneedlist.objects.filter(need_status=0)
+    return render(request,"Admin/Needlist.html",{'data':data})
+
+def Accept(request,did):
+    data=tbl_familyneedlist.objects.get(id=did)
+    data.need_status=1
+    data.save()
+    return redirect("Webadmin:Acceptedneeds")
+
+def Reject(request,did):
+    data=tbl_familyneedlist.objects.get(id=did)
+    data.need_status=2
+    data.save()
+    return redirect("Webadmin:Rejectedneeds")
+
+def Acceptedneeds(request):
+    data=tbl_familyneedlist.objects.filter(need_status=1)
+    return render(request,"Admin/Acceptedneeds.html",{'data':data})
+
+def Rejectedneeds(request):
+    data=tbl_familyneedlist.objects.filter(need_status=2)
+    return render(request,"Admin/Rejectedneeds.html",{'data':data})
+
+
+def Viewdonation(request):
+    data=tbl_donation.objects.all()
+    return render(request,"Admin/ViewDonations.html",{'data':data})
+
+
+def report(request):
+    if request.method=="POST":
+        frdate=request.POST.get('frdate')
+        todate=request.POST.get('todate')
+        data=tbl_donation.objects.filter(donation_date__gte=frdate,donation_date__lte=todate)
+        return render(request,"Admin/Report.html",{'data':data,'f':frdate,'t':todate}) 
+    return render(request,"Admin/Report.html")
+
+def logout(request):
+    del request.session['aid']
+    return redirect("Webguest:login")
+
+
+def viewteammembers(request):
+    data=tbl_teammember.objects.all()
+    return render(request,"Admin/Viewteammembers.html",{'data':data})

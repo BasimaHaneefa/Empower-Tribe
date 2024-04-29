@@ -27,7 +27,12 @@
                 <td>{{i.product_details}}</td>
                 <td>Rs.{{i.product_price}}/-</td>
                 <td>{{i.family.family_housename}}</td>
-                <td><a href="{% url 'Webuser:addcart' i.id %}">Add to cart</a></td>
+                <td>{% if i.total_stock == 0  %}
+                    Out of Stock
+                    {% else %}
+                    <a href="{% url 'Webuser:addcart' i.id %}">Add to cart</a>
+                    {% endif %}
+                </td>
             
             </tr>
             {% endfor  %}
