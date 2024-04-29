@@ -27,3 +27,9 @@
     </form>
 </body>
 </html>
+{% if membermsg1 %}
+    <script>alert('Registration is pending..!!')</script>
+    {% endif %}
+    {% if membermsg %}
+    <script>alert('Your Registration is Rejected...!!')</script>
+    {% endif %}

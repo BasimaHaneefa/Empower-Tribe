@@ -16,7 +16,7 @@
                 <td>Details</td>
                 <td>Price</td>
                 <td>Family</td>
-                <td>Stock</td>
+                <!-- <td>Stock</td> -->
                 <td>Action</td>
             </tr>
             {% for i in data %}
@@ -28,8 +28,13 @@
                 <td>{{i.product_details}}</td>
                 <td>Rs.{{i.product_price}}/-</td>
                 <td>{{i.family.family_housename}}</td>
-                <td>{{i.total_stock}}</td>
-                <td><a href="{% url 'Webteammember:stock' i.id %}">Add stock</a></td>
+                <!-- <td>{{i.total_stock}}</td> -->
+                <td>{% if i.total_stock == 0 %}
+                    <span style="color: rgb(234, 8, 8);">Out Of Stock</span>
+                    {% else %}
+                    <a href="{% url 'Webteammember:stock' i.id %}">Add stock</a>
+                    {% endif %}
+                </td>
             
             </tr>
             {% endfor  %}

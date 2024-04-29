@@ -8,7 +8,9 @@ def Login(request):
        login_email=request.POST.get("txtemail")
        login_password=request.POST.get("txtpassword")
 
-       membercount = tbl_teammember.objects.filter(member_email=login_email,member_password=login_password).count() 
+       membercount = tbl_teammember.objects.filter(member_email=login_email,member_password=login_password,member_status=1).count() 
+       member_s0=tbl_teammember.objects.filter(member_email=login_email,member_password=login_password,member_status=0).count()
+       member_s2=tbl_teammember.objects.filter(member_email=login_email,member_password=login_password,member_status=2).count()
        usercount = tbl_userreg.objects.filter(userregistration_email=login_email,userregistration_password=login_password).count() 
        admincount = tbl_registration.objects.filter(registration_email=login_email,registration_password=login_password).count() 
        
@@ -16,6 +18,12 @@ def Login(request):
           member = tbl_teammember.objects.get(member_email=login_email,member_password=login_password)
           request.session["mid"] = member.id
           return redirect("Webteammember:homepage")
+       elif member_s0>0:
+          membermsg0="pending"
+          return render(request,"Guest/Login.html",{'membermsg1':membermsg0})
+       elif member_s2>0:
+          membermsg2="rejected"
+          return render(request,"Guest/Login.html",{'membermsg':membermsg2})
        elif usercount > 0:
           user = tbl_userreg.objects.get(userregistration_email=login_email,userregistration_password=login_password)
           request.session["uid"] = user.id
@@ -57,7 +65,7 @@ def MemberRegistration(request,id):
                                        member_password=request.POST.get('txtpassword1'),
                                        assignment=tbl_assigmment.objects.get(id=id)
                                        )
-      return render(request,"Guest/Add_members.html",{memberdata:memberdata})
+      return render(request,"Guest/Add_members.html",{memberdata:memberdata})   
     else:
       return render(request,"Guest/Add_members.html",{memberdata:memberdata})
     

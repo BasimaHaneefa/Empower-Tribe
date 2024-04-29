@@ -16,6 +16,7 @@
                 <td>Address</td>
                 <td>Photo</td>
                 <td>Proof</td>
+                <td>Action</td>
             </tr>
             {% for i in data %}
             <tr>
@@ -25,6 +26,8 @@
                 <td>{{i.member_address}}</td>
                 <td><img src="{{i.member_photo.url}}" width="100" height="100" alt=""></td>
                 <td><img src="{{i.member_proof.url}}" width="100" height="100" alt=""></td>
+                <td><a href="{% url 'Webadmin:acceptmember' i.id %}">Accept</a>
+                <a href="{% url 'Webadmin:rejectmember' i.id %}">Reject</a></td>
             </tr>
             {% endfor %}
         </table>

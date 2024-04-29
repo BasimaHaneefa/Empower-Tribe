@@ -31,17 +31,15 @@
             <td>Rs.{{i.booking.booking_totalamount}}</td>
             <td>{{i.booking.user.userregistration_name}}</td>
             <td>{{i.booking.user.userregistration_address}},{{i.booking.user.userregistration_contact}}</td>
-            <!-- <td>{% if i.booking.booking_status == '1' and i.booking.payment_status == '1' %}
-                <a href="{% url 'webBusinessowner:BookingUpdates' i.id %}">Accept</a>
-                {% elif i.booking.booking_status == '3' and i.booking.payment_status == '1' %}
-                Order Placed |<a href="{% url 'webBusinessowner:BookingUpdates' i.id %}">Reject</a>|
-                
+            <td>{% if i.booking.booking_status == 1 %} 
+                <span style="color: blue;">Payed</span>
                 {% else %}
-                Order Rejected
+                <span style="color: rgb(243, 10, 10);">Not Payed</span>
                 {% endif %}
-            </td> -->
+            </td>
         </tr>
         {% endfor %}
+           
    </table>     
 </body>
 </html>

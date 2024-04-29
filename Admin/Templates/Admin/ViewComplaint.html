@@ -23,7 +23,7 @@
             <td>{{i.complaint_content}}</td>
             <td>{{i.complaint_date}}</td>
             <td>{{i.user.userregistration_name}}</td>
-            <td><a href="{% url 'webadmin:Reply' i.id %}">Reply</a></td>
+            <td><a href="{% url 'Webadmin:Reply' i.id %}">Reply</a></td>
         </tr>
         {% endfor %}
    </table>     

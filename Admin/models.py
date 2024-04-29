@@ -34,6 +34,7 @@ class tbl_teammember(models.Model):
     member_photo=models.FileField(upload_to='Memberdoc/')
     member_proof=models.FileField(upload_to='Memberproof/')
     member_password=models.CharField(max_length=50)  
+    member_status=models.IntegerField(default=0,null=True)
         
 class tbl_category(models.Model):
     category_name = models.CharField(max_length=50)

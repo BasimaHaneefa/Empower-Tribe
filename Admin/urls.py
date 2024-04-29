@@ -47,6 +47,9 @@ urlpatterns = [
     path('report/',views.report,name="report"),
 
     path('viewteammembers/',views.viewteammembers,name="viewteammembers"),
+    path('acceptmember/<int:id>',views.acceptmember,name="acceptmember"),
+    path('rejectmember/<int:id>',views.rejectmember,name="rejectmember"),
+
 
 
 

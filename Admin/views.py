@@ -248,3 +248,15 @@ def logout(request):
 def viewteammembers(request):
     data=tbl_teammember.objects.all()
     return render(request,"Admin/Viewteammembers.html",{'data':data})
+
+def acceptmember(request,id):
+    data=tbl_teammember.objects.get(id=id)
+    data.member_status=1
+    data.save()
+    return redirect("Webadmin:viewteammembers")
+
+def rejectmember(request,id):
+    data=tbl_teammember.objects.get(id=id)
+    data.member_status=2
+    data.save()
+    return redirect("Webadmin:viewteammembers")

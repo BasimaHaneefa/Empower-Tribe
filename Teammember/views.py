@@ -52,6 +52,7 @@ def family(request):
         tbl_family.objects.create(teammember=tbl_teammember.objects.get(id=request.session["mid"]),
         family_housename=request.POST.get("txt_housename"),
         family_address=request.POST.get("txt_address"),
+        family_member_count=request.POST.get("txt_count")
         )
         return redirect("Webteammember:family")
     else:
@@ -61,7 +62,6 @@ def familymembers(request,id):
     data=tbl_familymember.objects.filter(family=tbl_family.objects.get(id=id))
     if request.method == "POST":
         tbl_familymember.objects.create(family=tbl_family.objects.get(id=id),
-        family_member_counter=request.POST.get("txt_count"),
         family_member_name=request.POST.get("txt_name"),
         family_member_relation=request.POST.get("txt_relation"),
         family_member_age=request.POST.get("txt_age"),
@@ -77,13 +77,12 @@ def Product(request,id):
         tbl_product.objects.create(product_name=request.POST.get("txtname"),
                                   product_price=request.POST.get("txtprice"),
                                   product_details=request.POST.get("txtdetails"),
-                                  product_stock=request.POST.get("txtstock"),
                                   product_category=tbl_category.objects.get(id=request.POST.get("sel_category")),
                                   family=tbl_family.objects.get(id=id),
                                   member=tbl_teammember.objects.get(id=request.session["mid"]),
-                                  product_image=request.FILES.get("pimage")
+                                  product_image=request.FILES.get("pimage"),
                                        )
-        return redirect("Webteammember:family")
+        return redirect("Webteammember:viewproduct")
     else:
         return render(request,"Teammember/Add_Products.html",{'data':category})    
     

@@ -24,6 +24,12 @@
             <td>Rs.{{i.product.product_price}}</td>
             <td>{{i.cart_qty}}</td>
             <td>Rs.{{i.booking.booking_totalamount}}</td>
+            <td>{% if i.booking.booking_status == 1 %} 
+                <span style="color: blue;">Payed</span>
+                {% else %}
+                <span style="color: rgb(243, 10, 10);">Not Payed</span>
+                {% endif %}
+            </td>
             
         </tr>
         {% endfor %}
